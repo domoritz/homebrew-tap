@@ -1,20 +1,20 @@
 class Json2arrow < Formula
   desc "Convert JSON files to Arrow"
-  version "0.17.9"
+  version "0.17.10"
   on_macos do
     on_arm do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-aarch64-apple-darwin.tar.xz"
-      sha256 "8c942d550a7a902da4e38f57d70066911d9fe431496b5dd1b1dc4cbf588bedd1"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/json2arrow-aarch64-apple-darwin.tar.xz"
+      sha256 "116643a187911797954a9e3bdf63b50517e992ebf4eb30efb5c623778ff37f3e"
     end
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-x86_64-apple-darwin.tar.xz"
-      sha256 "b61341512e8ddafe42f5b664444981e842df862d5e4e7f88d4fe4e2fab70c97f"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/json2arrow-x86_64-apple-darwin.tar.xz"
+      sha256 "32626bf4d9ec356ffeb2aa595dfcc7d9d16dd05a88a95b35532645347a63278e"
     end
   end
   on_linux do
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "4b11aa795fd84ebba8519499ea1a4aaec08e14cae49e4d8ac51eb7245adabbb1"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/json2arrow-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "ff8cfbe1f6a5e02850603b2baf74da64740affe752906033050bbcd17587cea5"
     end
   end
   license "MIT/Apache-2.0"
