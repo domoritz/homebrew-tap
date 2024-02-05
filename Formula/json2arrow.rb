@@ -1,26 +1,40 @@
 class Json2arrow < Formula
   desc "Convert JSON files to Arrow"
-  version "0.17.8"
+  version "0.17.9"
   on_macos do
     on_arm do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.8/json2arrow-aarch64-apple-darwin.tar.xz"
-      sha256 "0e1268799bf29f0658706af84ae24adc0ff7cbfdaf967b8b267e677c15a73f23"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-aarch64-apple-darwin.tar.xz"
+      sha256 "8c942d550a7a902da4e38f57d70066911d9fe431496b5dd1b1dc4cbf588bedd1"
     end
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.8/json2arrow-x86_64-apple-darwin.tar.xz"
-      sha256 "d531a6fe5615c904ee52e4d89c88f7075637cb4de44c8881393ded9e4c9d1d9c"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-x86_64-apple-darwin.tar.xz"
+      sha256 "b61341512e8ddafe42f5b664444981e842df862d5e4e7f88d4fe4e2fab70c97f"
     end
   end
   on_linux do
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.8/json2arrow-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "10edab672778cf580b65d719e71fd4eb60dc81a20f7fc8fe8679b906f626e79b"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.9/json2arrow-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "4b11aa795fd84ebba8519499ea1a4aaec08e14cae49e4d8ac51eb7245adabbb1"
     end
   end
   license "MIT/Apache-2.0"
 
   def install
-    bin.install "json2arrow"
+    on_macos do
+      on_arm do
+        bin.install "json2arrow"
+      end
+    end
+    on_macos do
+      on_intel do
+        bin.install "json2arrow"
+      end
+    end
+    on_linux do
+      on_intel do
+        bin.install "json2arrow"
+      end
+    end
 
     # Homebrew will automatically install these, so we don't need to do that
     doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
