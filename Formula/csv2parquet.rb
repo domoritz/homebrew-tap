@@ -1,20 +1,20 @@
 class Csv2parquet < Formula
   desc "Convert CSV files to Parquet"
-  version "0.17.10"
+  version "0.18.0"
   on_macos do
     on_arm do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/csv2parquet-aarch64-apple-darwin.tar.xz"
-      sha256 "fbae17a2b6ffd02ea7a18401c6ece3b9af983d30e25ec4264363d4bccd8f91a9"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2parquet-aarch64-apple-darwin.tar.xz"
+      sha256 "071ab6750bf433fb9024c302ab6c707c7fdde5063c554f61c32eb309ef055775"
     end
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/csv2parquet-x86_64-apple-darwin.tar.xz"
-      sha256 "b80148cc5e0f84071a5ba0a95897dd63a14ec43ac1deaec4a056c1c918b0ef4d"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2parquet-x86_64-apple-darwin.tar.xz"
+      sha256 "55b5c35711717924d3c1eee63586888d5eef81e0e1265791dc4ca8e3b094f3f1"
     end
   end
   on_linux do
     on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.17.10/csv2parquet-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "90b776e82c0182aefbe9b7186b7f370a2650514f16932efc8262fe2af161a16b"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2parquet-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "f05c5da8ea16dd38ba1f75269b193dfcdacbd57902cde3bc582bd6f65f619fb4"
     end
   end
   license "MIT/Apache-2.0"
