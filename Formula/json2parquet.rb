@@ -1,40 +1,54 @@
 class Json2parquet < Formula
   desc "Convert JSON files to Parquet"
-  version "0.18.0"
-  on_macos do
-    on_arm do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/json2parquet-aarch64-apple-darwin.tar.xz"
-      sha256 "04629f70bf3152f760cdc31dbf3e218f14631ce8926de4262fb2936f051d388c"
+  homepage "https://github.com/domoritz/arrow-tools"
+  version "0.18.1"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/json2parquet-aarch64-apple-darwin.tar.xz"
+      sha256 "c57c4aacd085e056f71695a1f7b43b405b06628247a5384b0a48745a848e4129"
     end
-    on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/json2parquet-x86_64-apple-darwin.tar.xz"
-      sha256 "9c28f293ef319a4f59f2568a9f8131c35a40cd30ad144febef79dea27894f97f"
+    if Hardware::CPU.intel?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/json2parquet-x86_64-apple-darwin.tar.xz"
+      sha256 "93874a64d65b55251cd8bb54ad22762263bccff220b105e869e29f7c7d956ffc"
     end
   end
-  on_linux do
-    on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/json2parquet-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "4a5528c204bd36d117d811c5c354bb385b0e491032807f5d9af6ba3bb841c14f"
+  if OS.linux?
+    if Hardware::CPU.intel?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/json2parquet-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "66e7d2ff436236c8ef260674c1a42a898c55137d6aba8bedb56b7bb3d4bd8061"
     end
   end
   license "MIT/Apache-2.0"
 
+  BINARY_ALIASES = {"aarch64-apple-darwin": {}, "x86_64-apple-darwin": {}, "x86_64-pc-windows-gnu": {}, "x86_64-unknown-linux-gnu": {}, "x86_64-unknown-linux-musl-dynamic": {}, "x86_64-unknown-linux-musl-static": {}}
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
+    end
+  end
+
   def install
-    on_macos do
-      on_arm do
-        bin.install "json2parquet"
-      end
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "json2parquet"
     end
-    on_macos do
-      on_intel do
-        bin.install "json2parquet"
-      end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "json2parquet"
     end
-    on_linux do
-      on_intel do
-        bin.install "json2parquet"
-      end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "json2parquet"
     end
+
+    install_binary_aliases!
 
     # Homebrew will automatically install these, so we don't need to do that
     doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
@@ -42,6 +56,6 @@ class Json2parquet < Formula
 
     # Install any leftover files in pkgshare; these are probably config or
     # sample files.
-    pkgshare.install *leftover_contents unless leftover_contents.empty?
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
   end
 end
