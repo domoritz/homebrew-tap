@@ -1,40 +1,54 @@
 class Csv2arrow < Formula
   desc "Convert CSV files to Arrow"
-  version "0.18.0"
-  on_macos do
-    on_arm do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2arrow-aarch64-apple-darwin.tar.xz"
-      sha256 "0178f2b9c90299a5b482eb546d6f412fe2ffb223d15113823ad620979d54ae59"
+  homepage "https://github.com/domoritz/arrow-tools"
+  version "0.18.1"
+  if OS.mac?
+    if Hardware::CPU.arm?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-aarch64-apple-darwin.tar.xz"
+      sha256 "2cffead54a830e3d88449ff090891f12ce04757a94aa98111701232711f0843b"
     end
-    on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2arrow-x86_64-apple-darwin.tar.xz"
-      sha256 "c099cb95e280ac82cf82b465b92d0e47635458783df1aaeb2c6d1656620e00f1"
+    if Hardware::CPU.intel?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-x86_64-apple-darwin.tar.xz"
+      sha256 "7c62f15e981904fa4e79cc1e423fe682d8a25c5f00e245960defec0e27bc98fd"
     end
   end
-  on_linux do
-    on_intel do
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.0/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "f80e739945554c60b924488d8d82d95aef17fcedc05feda42c9fc819865998a7"
+  if OS.linux?
+    if Hardware::CPU.intel?
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "b4e2c2a10a9e030dc82362bfb6c8a889c0fe59422bfeb67fb723644d6125b4a3"
     end
   end
   license "MIT/Apache-2.0"
 
+  BINARY_ALIASES = {"aarch64-apple-darwin": {}, "x86_64-apple-darwin": {}, "x86_64-pc-windows-gnu": {}, "x86_64-unknown-linux-gnu": {}, "x86_64-unknown-linux-musl-dynamic": {}, "x86_64-unknown-linux-musl-static": {}}
+
+  def target_triple
+    cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
+    os = OS.mac? ? "apple-darwin" : "unknown-linux-gnu"
+
+    "#{cpu}-#{os}"
+  end
+
+  def install_binary_aliases!
+    BINARY_ALIASES[target_triple.to_sym].each do |source, dests|
+      dests.each do |dest|
+        bin.install_symlink bin/source.to_s => dest
+      end
+    end
+  end
+
   def install
-    on_macos do
-      on_arm do
-        bin.install "csv2arrow"
-      end
+    if OS.mac? && Hardware::CPU.arm?
+      bin.install "csv2arrow"
     end
-    on_macos do
-      on_intel do
-        bin.install "csv2arrow"
-      end
+    if OS.mac? && Hardware::CPU.intel?
+      bin.install "csv2arrow"
     end
-    on_linux do
-      on_intel do
-        bin.install "csv2arrow"
-      end
+    if OS.linux? && Hardware::CPU.intel?
+      bin.install "csv2arrow"
     end
+
+    install_binary_aliases!
 
     # Homebrew will automatically install these, so we don't need to do that
     doc_files = Dir["README.*", "readme.*", "LICENSE", "LICENSE.*", "CHANGELOG.*"]
@@ -42,6 +56,6 @@ class Csv2arrow < Formula
 
     # Install any leftover files in pkgshare; these are probably config or
     # sample files.
-    pkgshare.install *leftover_contents unless leftover_contents.empty?
+    pkgshare.install(*leftover_contents) unless leftover_contents.empty?
   end
 end
