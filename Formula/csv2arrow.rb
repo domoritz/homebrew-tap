@@ -1,26 +1,31 @@
 class Csv2arrow < Formula
   desc "Convert CSV files to Arrow"
-  homepage "https://github.com/domoritz/arrow-tools"
-  version "0.18.1"
+  homepage "https://github.com/domoritz/arrow-tools/tree/main/crates/csv2arrow"
+  version "0.19.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-aarch64-apple-darwin.tar.xz"
-      sha256 "2cffead54a830e3d88449ff090891f12ce04757a94aa98111701232711f0843b"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-aarch64-apple-darwin.tar.xz"
+      sha256 "4f7a9fb2a2f168cfb44350c7fc8caddd99e45863eb22ea8d1e86ab902f7062ab"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-x86_64-apple-darwin.tar.xz"
-      sha256 "7c62f15e981904fa4e79cc1e423fe682d8a25c5f00e245960defec0e27bc98fd"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-x86_64-apple-darwin.tar.xz"
+      sha256 "9ab03ba61d67655b78281292c4ec335a204e43559b3555f0eb5d59fe5c41aa02"
     end
   end
-  if OS.linux?
-    if Hardware::CPU.intel?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.18.1/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "b4e2c2a10a9e030dc82362bfb6c8a889c0fe59422bfeb67fb723644d6125b4a3"
-    end
+  if OS.linux? && Hardware::CPU.intel?
+    url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "5299ce1a96b2915d7f99c3b97a565b4cf9bb546f8cb8491aeabaa2d5e7df662d"
   end
   license "MIT/Apache-2.0"
 
-  BINARY_ALIASES = {"aarch64-apple-darwin": {}, "x86_64-apple-darwin": {}, "x86_64-pc-windows-gnu": {}, "x86_64-unknown-linux-gnu": {}, "x86_64-unknown-linux-musl-dynamic": {}, "x86_64-unknown-linux-musl-static": {}}
+  BINARY_ALIASES = {
+    "aarch64-apple-darwin":              {},
+    "x86_64-apple-darwin":               {},
+    "x86_64-pc-windows-gnu":             {},
+    "x86_64-unknown-linux-gnu":          {},
+    "x86_64-unknown-linux-musl-dynamic": {},
+    "x86_64-unknown-linux-musl-static":  {},
+  }.freeze
 
   def target_triple
     cpu = Hardware::CPU.arm? ? "aarch64" : "x86_64"
@@ -38,15 +43,9 @@ class Csv2arrow < Formula
   end
 
   def install
-    if OS.mac? && Hardware::CPU.arm?
-      bin.install "csv2arrow"
-    end
-    if OS.mac? && Hardware::CPU.intel?
-      bin.install "csv2arrow"
-    end
-    if OS.linux? && Hardware::CPU.intel?
-      bin.install "csv2arrow"
-    end
+    bin.install "csv2arrow" if OS.mac? && Hardware::CPU.arm?
+    bin.install "csv2arrow" if OS.mac? && Hardware::CPU.intel?
+    bin.install "csv2arrow" if OS.linux? && Hardware::CPU.intel?
 
     install_binary_aliases!
 
