@@ -1,20 +1,20 @@
 class Csv2arrow < Formula
   desc "Convert CSV files to Arrow"
   homepage "https://github.com/domoritz/arrow-tools/tree/main/crates/csv2arrow"
-  version "0.19.0"
+  version "0.20.0"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-aarch64-apple-darwin.tar.xz"
-      sha256 "4f7a9fb2a2f168cfb44350c7fc8caddd99e45863eb22ea8d1e86ab902f7062ab"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/csv2arrow-aarch64-apple-darwin.tar.xz"
+      sha256 "9c37b4a5d8364f9899f7d69dc030da3348ce801e5283114bb6900bf6930b9abf"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-x86_64-apple-darwin.tar.xz"
-      sha256 "9ab03ba61d67655b78281292c4ec335a204e43559b3555f0eb5d59fe5c41aa02"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/csv2arrow-x86_64-apple-darwin.tar.xz"
+      sha256 "74da1c2db8bca5fa6d8d15f4c120e43c46de11ee83787bc6fe3d17c04a9f5501"
     end
   end
   if OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/domoritz/arrow-tools/releases/download/v0.19.0/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
-    sha256 "5299ce1a96b2915d7f99c3b97a565b4cf9bb546f8cb8491aeabaa2d5e7df662d"
+    url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/csv2arrow-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "45caf00f0c5d1ad4fbae9d7cadaff2dd095b9a0cc34e0f669847cec77a60549f"
   end
   license "MIT/Apache-2.0"
 
