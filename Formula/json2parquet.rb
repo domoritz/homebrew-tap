@@ -1,20 +1,20 @@
 class Json2parquet < Formula
   desc "Convert JSON files to Parquet"
   homepage "https://github.com/domoritz/arrow-tools/tree/main/crates/json2parquet"
-  version "0.20.0"
+  version "0.21.1"
   if OS.mac?
     if Hardware::CPU.arm?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/json2parquet-aarch64-apple-darwin.tar.xz"
-      sha256 "0be62f9d43221f726b7b8c1e859e22153d492d647520dd91e3967b3b635be93c"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.21.1/json2parquet-aarch64-apple-darwin.tar.xz"
+      sha256 "bad6a17eb3af08486f39610a31321a82cd38ebb35791beefb80cba19361b0822"
     end
     if Hardware::CPU.intel?
-      url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/json2parquet-x86_64-apple-darwin.tar.xz"
-      sha256 "7182142f70a8c2d42e36e55fadec46577eafc66cae71331ec3262e9a0c085578"
+      url "https://github.com/domoritz/arrow-tools/releases/download/v0.21.1/json2parquet-x86_64-apple-darwin.tar.xz"
+      sha256 "9e1e5de1bbd9a3ea586086ecb1188e874344c7626a7e52a3cb043942e30a042f"
     end
   end
   if OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/domoritz/arrow-tools/releases/download/v0.20.0/json2parquet-x86_64-unknown-linux-gnu.tar.xz"
-    sha256 "395e4b7ac7cef49a020c861fcafb6014147f5c53b8b8708296337b2466d54e1c"
+    url "https://github.com/domoritz/arrow-tools/releases/download/v0.21.1/json2parquet-x86_64-unknown-linux-gnu.tar.xz"
+    sha256 "5c6a721d756cee739c7f17716e9b8678d2fb1e3384894dd018255ac7605115b1"
   end
   license "MIT/Apache-2.0"
 
